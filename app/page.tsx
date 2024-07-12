@@ -23,9 +23,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="container grow card glass card-side bg-base-100 shadow-xl flex p-16 mx-auto my-8">
+      <div className="container h-64 grow card glass card-side bg-base-100 shadow-xl flex p-16 mx-auto my-8">
         {/* 图片操作区 */}
-        <div className="grow h-full w-auto mr-8">
+        <div className="grow h-full w-auto mr-8 overflow-auto">
           <div className="flex flex-row flex-wrap mx-auto justify-around">
             {
               images.map(image => {
@@ -35,7 +35,7 @@ export default function Home() {
                     id={image.name}
                     className="flex bg-slate-100 size-48 rounded-lg m-3 bg-cover p-2 flex-wrap"
                     style={{
-                      backgroundImage: `url(${image.url})`,
+                      backgroundImage: `url(${URL.createObjectURL(image)})`,
                     }}
                   >
                     <input type="checkbox" checked className="checkbox" />
@@ -43,6 +43,9 @@ export default function Home() {
                   </div>
                 )
               })
+            }
+            {
+                images.length === 0 && <div className="h-full w-full flex items-center justify-center font-bold text-4xl">请上传图片</div>
             }
           </div>
         </div>
@@ -77,6 +80,9 @@ export default function Home() {
               <input type="text" className="grow mx-2" placeholder="Height" />
               px
             </label>
+            <div className="label">
+              <span className="label-text-alt">重新设置宽高</span>
+            </div>
           </label>
           <label className="form-control w-full max-w-xs mb-2">
             <label className="input join-item input-bordered flex items-center">
@@ -88,11 +94,18 @@ export default function Home() {
               <span className="label-text-alt">与实际存在差异但始终小于此值</span>
             </div>
           </label>
-          <select className="select select-bordered w-full max-w-xs mb-4">
-            <option disabled selected>原始格式</option>
-            <option>Han Solo</option>
-            <option>Greedo</option>
-          </select>
+          <label className="form-control w-full max-w-xs">
+            <select className="select select-bordered">
+              <option selected>原始格式</option>
+              <option>jpg</option>
+              <option>png</option>
+              <option>webp</option>
+              <option>jpgp</option>
+            </select>
+            <div className="label">
+              <span className="label-text-alt">Alt label</span>
+            </div>
+          </label>
           <button className="btn w-full btn-neutral">压缩</button>
         </div>
       </div>
